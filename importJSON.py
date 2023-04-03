@@ -9,8 +9,11 @@ if response.status_code == 200:
 
     data = response.json()
 
-    # Créer un dictionnaire pour stocker les données
-    players = {}
+    # Créer une liste pour stocker les données
+    players = []
+
+    # Définir un compteur d'ID
+    id_counter = 1
 
     # Parcourir les données pour extraire les attributs que vous souhaitez récupérer
     for player in data:
@@ -20,8 +23,11 @@ if response.status_code == 200:
         age = player["player_age"]
         numero = player["player_number"]
 
-        # Ajouter les attributs extraits au dictionnaire
-        players[nom] = {"equipe": equipe, "poste": poste, "age": age, "numero": numero}
+        # Ajouter les attributs extraits à la liste avec l'ID auto-incrémenté
+        players.append([id_counter, nom, equipe, poste, age, numero])
+        
+        # Incrémenter l'ID
+        id_counter += 1
 
     # Écrire les données dans un fichier JSON
     with open("joueurs.json", "w") as f:
