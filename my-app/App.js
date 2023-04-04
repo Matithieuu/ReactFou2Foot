@@ -1,62 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
-import { TouchableOpacity, StyleSheet, Text, TextInput, View,Button,Alert} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { View, Text, StyleSheet } from 'react-native';
 
+import SearchBar from '/amuhome/y21218666/2Année/Dev\ Application/fou2foot/my-app/src/SearchBar';
+import PlayerList from '/amuhome/y21218666/2Année/Dev\ Application/fou2foot/my-app/src/PlayerList';
 
-export default function App() {
-
-
+const DisplayNameWebSite = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}> Fou2Foot</Text>
-      <TextInput
-      style={styles.champInput}
-        placeholder="Entrez le nom d'un joueur"
-      />
-      <StatusBar style="auto" />
-      <TouchableOpacity style={styles.button} onPress={() => Alert.alert('Simple Button pressed')}>
-        <Text style={styles.buttonText}>Rechercher</Text>
-      </TouchableOpacity>
-    </View>
+    <Text style={styles.NameWebSite}> Fou2Foot</Text>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#00000',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 'center',
-    position: 'relative',
-  },
+const App = () => {
+  const [players, setPlayers] = useState([]);
 
-  label:{
-    color: '#FFFFFF',
-    position: 'absolute',
+  const searchPlayers = async (term) => {
+    const response = await axios.get('https://my-json-server.typicode.com/Matithieuu/ReactFou2Foot/db');
+    const allPlayers = response.data.joueurs;
+    const filteredPlayers = allPlayers.filter((player) => {
+      return player.nom.toLowerCase().includes(term.toLowerCase());
+    });
+    setPlayers(filteredPlayers);
+  };
+
+  return (
+    <View>
+      <DisplayNameWebSite/>
+      <SearchBar search={searchPlayers} />
+      <PlayerList players={players} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  NameWebSite: 
+  {
+    //color: '#FFFFFF',
     top: 150,
     fontSize: 40,
     fontWeight: 'bold'
+  }
 
-  },
-
-  champInput:{
-    borderColor: "#FFFFFF",
-    color: '#FFFFFF',
-    fontSize: 18,
-    width: '70%',
-
-  },
-  button: {
-    borderWidth: 2,
-    borderColor: '#FFFFFF',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 20,
-    backgroundColor: 'transparent',
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
 });
+
+
+
+
+
+
+export default App;
