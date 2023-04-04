@@ -1,0 +1,19 @@
+{
+    "joueurs":[
+       {
+          "id":1,
+          "nom":"Messi",
+          "club":"Paris Saint-Germain"
+       },
+       {
+          "id":2,
+          "nom":"Ronaldo",
+          "club":"Manchester United"
+       },
+       {
+          "id":3,
+          "nom":"Neymar",
+          "club":"Paris Saint-Germain"
+       }
+    ]
+ }
