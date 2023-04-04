@@ -14,7 +14,6 @@ const PlayerList = ({ players }) => {
         return (
           <View>
             <Text>{item.nom}</Text>
-            <Text>{item.club}</Text>
           </View>
         );
       }}
