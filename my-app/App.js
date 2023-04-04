@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { View, Text, StyleSheet } from 'react-native';
 
 import SearchBar from './src/SearchBar';
 import PlayerList from './src/PlayerList';
+import SearchButton from './src/SearchButton';
+
 
 const DisplayNameWebSite = () => {
   return (
@@ -17,23 +19,25 @@ const App = () => {
   const searchPlayers = async (term) => {
     const response = await axios.get('https://my-json-server.typicode.com/Matithieuu/ReactFou2Foot/db');
     const allPlayers = response.data.joueurs;
+    //navigation.navigate('PlayerList', { searchTerm: term });
     const filteredPlayers = allPlayers.filter((player) => {
       return player.nom.toLowerCase().includes(term.toLowerCase());
     });
     setPlayers(filteredPlayers);
-  };
+  }; 
 
-  return (
+  return (    
     <View>
-      <DisplayNameWebSite/>
+      <DisplayNameWebSite />
       <SearchBar search={searchPlayers} />
       <PlayerList players={players} />
+      <SearchButton />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  NameWebSite: 
+  NameWebSite:
   {
     //color: '#FFFFFF',
     top: 150,
@@ -42,10 +46,5 @@ const styles = StyleSheet.create({
   }
 
 });
-
-
-
-
-
 
 export default App;
