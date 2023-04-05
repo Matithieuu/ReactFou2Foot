@@ -1,22 +1,52 @@
 import { StatusBar } from 'expo-status-bar';
-import { TouchableOpacity, StyleSheet, Text, TextInput, View,Button,Alert} from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, TextInput, View,Button,Alert, ImageBackground} from 'react-native';
+
+import  mbappe  from './assets/mbappe2.png';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+
+
+const Stack = createStackNavigator();
+
+function Page() {
+  return (
+    <View>
+      <Text>This is the new page!</Text>
+    </View>
+  );
+}
 
 
 export default function App() {
 
-
   return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}} />
+        <Stack.Screen name="Page" component={Page} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function HomeScreen({ navigation }) {
+  return (
+    <ImageBackground source={mbappe} style={styles.backgroundImage}>
     <View style={styles.container}>
       <Text style={styles.label}> Fou2Foot</Text>
-      <TextInput
-      style={styles.champInput}
-        placeholder="Entrez le nom d'un joueur"
-      />
+      <View style={styles.form}>
+      <TextInput style={styles.champInput} placeholder="Entrez le nom d'un joueur"/>
+      <TouchableOpacity 
+            style={styles.button} 
+            onPress={() => navigation.navigate('Page')}>
+            <Text style={styles.buttonText}>Rechercher</Text>
+          </TouchableOpacity>
+      </View>
       <StatusBar style="auto" />
-      <TouchableOpacity style={styles.button} onPress={() => Alert.alert('Simple Button pressed')}>
-        <Text style={styles.buttonText}>Rechercher</Text>
-      </TouchableOpacity>
     </View>
+    </ImageBackground>
   );
 }
 
@@ -43,8 +73,11 @@ const styles = StyleSheet.create({
     borderColor: "#FFFFFF",
     color: '#FFFFFF',
     fontSize: 18,
-    width: '70%',
-
+    width: '103%',
+    borderWidth: 2,
+    borderRadius: 5,
+    padding: 7
+    
   },
   button: {
     borderWidth: 2,
@@ -59,4 +92,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
+
+  form: {
+    alignItems: 'center',
+    marginTop: 100,
+  },
+
 });
+
+
