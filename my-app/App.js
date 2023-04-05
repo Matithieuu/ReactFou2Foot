@@ -6,18 +6,13 @@ import  mbappe  from './assets/mbappe2.png';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import SecondScreen from './SecondScreen';
+
 
 
 const Stack = createStackNavigator();
 
-function Page() {
-  return (
-    <View>
-      <Text>This is the new page!</Text>
-    </View>
-  );
-}
-
+ 
 
 export default function App() {
 
@@ -25,7 +20,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}} />
-        <Stack.Screen name="Page" component={Page} />
+        <Stack.Screen name="Second" component={SecondScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -40,7 +35,7 @@ function HomeScreen({ navigation }) {
       <TextInput style={styles.champInput} placeholder="Entrez le nom d'un joueur"/>
       <TouchableOpacity 
             style={styles.button} 
-            onPress={() => navigation.navigate('Page')}>
+            onPress={() => navigation.navigate('Second')}>
             <Text style={styles.buttonText}>Rechercher</Text>
           </TouchableOpacity>
       </View>
